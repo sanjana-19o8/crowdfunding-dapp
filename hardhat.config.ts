@@ -1,13 +1,12 @@
-import { HardhatUserConfig } from "hardhat/config";
-import "@nomicfoundation/hardhat-toolbox";
+require("@nomicfoundation/hardhat-toolbox");
+require("@nomicfoundation/hardhat-chai-matchers");
 
-require("@nomiclabs/hardhat-waffle");
-
-const config: HardhatUserConfig = {
+module.exports = {
   solidity: "0.8.19",
+  paths: {
+    artifacts: "./artifacts",
+  },
   networks: {
     hardhat: {},
   },
 };
-
-export default config;
