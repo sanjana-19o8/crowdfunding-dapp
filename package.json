@@ -1,22 +1,21 @@
 {
-  "name": "crowdfund-dapp",
-  "version": "0.1.0",
-  "private": true,
+  "name": "crowdfund-app",
+  "version": "1.0.0",
+  "main": "index.js",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "dependencies": {
-    "@openzeppelin/contracts": "^4.9.3",
-    "dotenv": "^16.3.1",
-    "ethers": "^4.0.0",
-    "postcss": "8.4.28",
-    "tailwindcss": "3.3.3",
-    "typescript": "5.1.6",
-    "web3modal": "^1.9.12"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sanjana-19o8/crowdfunding-dapp.git"
   },
+  "author": "sanjana vajrapu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sanjana-19o8/crowdfunding-dapp/issues"
+  },
+  "homepage": "https://github.com/sanjana-19o8/crowdfunding-dapp#readme",
+  "keywords": [],
   "devDependencies": {
     "@nomicfoundation/hardhat-chai-matchers": "^2.0.2",
     "@nomicfoundation/hardhat-ethers": "^3.0.4",
@@ -27,18 +26,18 @@
     "@typechain/hardhat": "^8.0.3",
     "@types/chai": "^4.3.5",
     "@types/mocha": "^10.0.1",
-    "@types/react": "18.2.20",
     "chai": "^4.3.7",
-    "eslint": "8.45.0",
-    "eslint-config-next": "13.4.12",
     "hardhat": "^2.17.1",
     "hardhat-gas-reporter": "^1.0.9",
-    "next": "^13.4.12",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
     "solidity-coverage": "^0.8.4",
     "ts-node": "^10.9.1",
     "typechain": "^8.3.1",
     "typescript": "^5.1.6"
-  }
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.9.3",
+    "dotenv": "^16.3.1",
+    "ethers": "^5.7.2"
+  },
+  "description": ""
 }
