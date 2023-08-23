@@ -22,3 +22,7 @@ export function fromWei(val: string, decimal: number = 18): string {
 export function toBN(value: BigNumberish): BigNumber {
     return new BigNumber(value);
 }
+
+export function handleChainOrAccChange() {
+    window.location.reload();
+}

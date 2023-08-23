@@ -1,5 +1,6 @@
 `use client`
-import { useState, useEffect, SetStateAction } from 'react'
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import { Contract, ethers } from 'ethers'
@@ -9,6 +10,8 @@ import { abi, addr } from '../../scripts/constants.js'
 
 
 export default function Home() {
+  const router = useRouter()
+
   const [provider, setProvider] = useState<any>();
   const [address, setAddress] = useState('');
   const [contrcat, setContract] = useState<Contract>();
@@ -21,7 +24,8 @@ export default function Home() {
         window.ethereum.request({ method: 'eth_requestAccounts' })
           .then((accounts: any) => {
             setAddress(accounts[0])
-            console.log(`Connected to account: ${address}`);
+            console.log(`Connected to account: ${address}`)
+            router.push('/dashboard')
           })
           .catch((error: any) => {
             console.error('Error:', error);
