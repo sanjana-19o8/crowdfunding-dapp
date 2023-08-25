@@ -1,4 +1,4 @@
-`use client`
+
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
@@ -10,7 +10,7 @@ import { abi, addr } from '../../scripts/constants.js'
 
 
 export default function Home() {
-  const router = useRouter()
+  const router = useRouter();
 
   const [provider, setProvider] = useState<any>();
   const [address, setAddress] = useState('');
