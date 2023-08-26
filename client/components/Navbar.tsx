@@ -1,4 +1,4 @@
-export default function Navbar() {
+export default function Navbar(connectWallet: any) {
     return (
         <nav className="w-full flex">
             <div>

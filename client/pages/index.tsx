@@ -4,51 +4,29 @@ import { useRouter } from 'next/router'
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import { Contract, ethers } from 'ethers'
+import { Navbar } from '@/components'
 
 const inter = Inter({ subsets: ['latin'] })
-import { abi, addr } from '../../scripts/constants.js'
-
 
 export default function Home() {
   const router = useRouter();
 
   const [provider, setProvider] = useState<any>();
   const [address, setAddress] = useState('');
-  const [contrcat, setContract] = useState<Contract>();
+  const [contract, setContract] = useState<Contract>();
 
-  const connectWallet = async () => {
-    try {
-      if (typeof window.ethereum !== 'undefined') {
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        // Request user account access
-        window.ethereum.request({ method: 'eth_requestAccounts' })
-          .then((accounts: any) => {
-            setAddress(accounts[0])
-            console.log(`Connected to account: ${address}`)
-            router.push('/dashboard')
-          })
-          .catch((error: any) => {
-            console.error('Error:', error);
-          });
 
-        setProvider(provider.getSigner());
-      }
-    } catch (error) {
-      console.log('Metamask not detected | data not fetched');
-    }
-  };
-
-  useEffect(() => {
-    if (provider) {
-      const newContract = new ethers.Contract(addr, abi, provider.getSigner());
-      setContract(newContract);
-    }
-  }, [provider]);
+  function onConnectDo(address: string) {
+    setAddress(address);
+    console.log(`Connected to account: ${address}`);
+    router.push('/dashboard');
+  }
 
   return (
     <main
       className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
     >
+      <Navbar />
       <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
         Fund Factory | Crowd funding App
       </div>
