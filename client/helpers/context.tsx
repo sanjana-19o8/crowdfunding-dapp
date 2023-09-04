@@ -7,7 +7,7 @@ export const fetchContract = (signerOrProvider: ethers.Signer | ethers.providers
 
 export const context = createContext<any>(null);
 
-export const provider = ({ children }: { children: any }) => {
+export const FundFactoryProvider = ({ children }: { children: any }) => {
   const title = 'Crowd funding contract';
   const [account, setAccount] = useState('');
 

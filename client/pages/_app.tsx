@@ -3,6 +3,7 @@ import type { AppProps } from 'next/app'
 
 import { useEffect } from 'react';
 import { handleChainOrAccChange } from '@/helpers/utils'
+import { FundFactoryProvider } from '@/helpers/context'
 
 export default function App({ Component, pageProps }: AppProps) {
 
@@ -15,7 +16,9 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <>
-    <Component {...pageProps} />
+      <FundFactoryProvider>
+        <Component {...pageProps} />
+      </FundFactoryProvider>
     </>
   )
 }
