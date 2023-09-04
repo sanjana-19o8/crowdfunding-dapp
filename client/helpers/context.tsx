@@ -5,7 +5,7 @@ import { abi, addr } from '../../scripts/constants.js'
 
 export const fetchContract = (signerOrProvider: ethers.Signer | ethers.providers.Provider) => new ethers.Contract(addr, abi, signerOrProvider);
 
-export const context = createContext('');
+export const context = createContext<any>(null);
 
 export const provider = ({ children }: { children: any }) => {
   const title = 'Crowd funding contract';
