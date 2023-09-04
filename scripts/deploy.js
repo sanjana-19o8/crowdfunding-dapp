@@ -20,4 +20,4 @@ main()
     process.exit(1);
   });
 
-export default contract;
+module.exports = contract; // Export contract variable

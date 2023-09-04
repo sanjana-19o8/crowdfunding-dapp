@@ -11,7 +11,7 @@ contract Fundfactory {
         uint256 deadline;
         uint256 collectedAmt;
         string image;
-        address[] donators;
+        address[] donors;
         uint256[] donations;
         bool isVerified;
         bool isActive;
@@ -59,7 +59,7 @@ contract Fundfactory {
 
         Campaign storage donate_to = campaigns[_id];
 
-        donate_to.donators.push(msg.sender);
+        donate_to.donors.push(msg.sender);
         donate_to.donations.push(amount);
 
         (bool sent, ) = payable(donate_to.creator).call{value: amount}("");
@@ -70,7 +70,7 @@ contract Fundfactory {
     }
 
     function getDonations(uint256 _id) view public returns (address[] memory, uint256[] memory) {
-        return (campaigns[_id].donators, campaigns[_id].donations);
+        return (campaigns[_id].donors, campaigns[_id].donations);
     }
 
     function getCampaigns() public view returns (Campaign[] memory) {

@@ -62,25 +62,69 @@ export const provider = ({ children }: { children: any }) => {
     const provider = new ethers.providers.JsonRpcProvider();
     const contract = fetchContract(provider);
 
-    const donations = await contract.getDonations(id);
-  }
-}
+    const {donors, donations} = await contract.getDonations(id);
+    const count = donations.length;
 
-export const connectWallet = async (onConnectDo: (address: string) => any) => {
-  try {
-    if (typeof window.ethereum !== 'undefined') {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      // Request user account access
-      window.ethereum.request({ method: 'eth_requestAccounts' })
-        .then((accounts: any) => {
-          onConnectDo(accounts[0]);
-        })
-        .catch((error: any) => {
-          console.error('Error:', error);
-        });
-
+    const parsedDonations = [];
+    for( let i=0; i<count; i++) {
+      parsedDonations.push({
+        donor: donors[i],
+        amount: ethers.utils.formatEther(donations[i].toString()),
+      })
     }
-  } catch (error) {
-    console.log('Metamask not detected | data not fetched');
+
+    return parsedDonations;
   }
-};
+
+  const donate = async (id: number, amount: number) => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+
+    const donateContract = fetchContract(signer);
+    const donateTo = await donateContract.donate(id, { value: ethers.utils.parseEther(amount.toString())});
+
+    await donateTo.wait();
+    location.reload();
+    console.log(`Donated to campaign #${id}`);
+  }
+
+  // check if wallet connected
+  const checkWalletConnection = async () => {
+    try {
+      if(!window.ethereum) {
+        console.error('Install Metamask to proceed');
+        return;
+      }
+
+      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts', });
+      if(accounts.length) {
+        setAccount(accounts[0]);
+      } else {
+        console.log('No accounts found');
+      }
+    } catch(err) {
+      console.log('Error connecting to wallet')
+    }
+  }
+
+  // connect to Metamask function
+  const connectWallet = async (onConnectDo: (address: string) => any) => {
+    try {
+      if (typeof window.ethereum !== 'undefined') {
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        // Request user account access
+        window.ethereum.request({ method: 'eth_requestAccounts' })
+          .then((accounts: any) => {
+            console.log(`Connected to wallet @${accounts[0]}`);
+            onConnectDo(accounts[0]);
+          })
+          .catch((error: any) => {
+            console.error('No account found || Error:', error);
+          });
+  
+      }
+    } catch (error) {
+      console.log('Error connecting to Metamask | Wallet not fetched');
+    }
+  };
+}
