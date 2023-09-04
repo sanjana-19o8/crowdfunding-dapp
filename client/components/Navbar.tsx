@@ -1,3 +1,5 @@
+import { ContractContext } from "@/helpers/context"
+
 export default function Navbar(connectWallet: any) {
     return (
         <nav className="w-full flex">

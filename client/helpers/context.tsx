@@ -5,7 +5,7 @@ import { abi, addr } from '../../scripts/constants.js'
 
 export const fetchContract = (signerOrProvider: ethers.Signer | ethers.providers.Provider) => new ethers.Contract(addr, abi, signerOrProvider);
 
-export const context = createContext<any>(null);
+export const ContractContext = createContext<any>(null);
 
 export const FundFactoryProvider = ({ children }: { children: any }) => {
   const title = 'Crowd funding contract';
@@ -130,7 +130,7 @@ export const FundFactoryProvider = ({ children }: { children: any }) => {
     , []);
 
   return (
-    <context.Provider
+    <ContractContext.Provider
       value={{
         title,
         account,
@@ -142,7 +142,7 @@ export const FundFactoryProvider = ({ children }: { children: any }) => {
       }}
     >
       {children}
-    </context.Provider>
+    </ContractContext.Provider>
   )
 
 }
