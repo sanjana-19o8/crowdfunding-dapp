@@ -62,11 +62,11 @@ export const provider = ({ children }: { children: any }) => {
     const provider = new ethers.providers.JsonRpcProvider();
     const contract = fetchContract(provider);
 
-    const {donors, donations} = await contract.getDonations(id);
+    const { donors, donations } = await contract.getDonations(id);
     const count = donations.length;
 
     const parsedDonations = [];
-    for( let i=0; i<count; i++) {
+    for (let i = 0; i < count; i++) {
       parsedDonations.push({
         donor: donors[i],
         amount: ethers.utils.formatEther(donations[i].toString()),
@@ -81,7 +81,7 @@ export const provider = ({ children }: { children: any }) => {
     const signer = provider.getSigner();
 
     const donateContract = fetchContract(signer);
-    const donateTo = await donateContract.donate(id, { value: ethers.utils.parseEther(amount.toString())});
+    const donateTo = await donateContract.donate(id, { value: ethers.utils.parseEther(amount.toString()) });
 
     await donateTo.wait();
     location.reload();
@@ -91,18 +91,18 @@ export const provider = ({ children }: { children: any }) => {
   // check if wallet connected
   const checkWalletConnection = async () => {
     try {
-      if(!window.ethereum) {
+      if (!window.ethereum) {
         console.error('Install Metamask to proceed');
         return;
       }
 
       const accounts = await window.ethereum.request({ method: 'eth_requestAccounts', });
-      if(accounts.length) {
+      if (accounts.length) {
         setAccount(accounts[0]);
       } else {
         console.log('No accounts found');
       }
-    } catch(err) {
+    } catch (err) {
       console.log('Error connecting to wallet')
     }
   }
@@ -111,7 +111,6 @@ export const provider = ({ children }: { children: any }) => {
   const connectWallet = async (onConnectDo: (address: string) => any) => {
     try {
       if (typeof window.ethereum !== 'undefined') {
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
         // Request user account access
         window.ethereum.request({ method: 'eth_requestAccounts' })
           .then((accounts: any) => {
@@ -121,10 +120,29 @@ export const provider = ({ children }: { children: any }) => {
           .catch((error: any) => {
             console.error('No account found || Error:', error);
           });
-  
       }
     } catch (error) {
       console.log('Error connecting to Metamask | Wallet not fetched');
     }
   };
+
+  useEffect(() => { checkWalletConnection(); }
+    , []);
+
+  return (
+    <context.Provider
+      value={{
+        title,
+        account,
+        createCampaign,
+        getCampaigns,
+        getDonations,
+        donate,
+        connectWallet,
+      }}
+    >
+      {children}
+    </context.Provider>
+  )
+
 }
