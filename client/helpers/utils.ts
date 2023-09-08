@@ -1,4 +1,5 @@
-import { BigNumber, BigNumberish } from "ethers/utils";
+// import { BigNumber, BigNumberish } from "ethers/utils";
+import { BigNumber, BigNumberish } from "ethers";
 import { utils } from "ethers";
 
 declare global {
@@ -20,7 +21,7 @@ export function fromWei(val: string, decimal: number = 18): string {
 }
 
 export function toBN(value: BigNumberish): BigNumber {
-    return new BigNumber(value);
+    return new BigNumber(value, '10');
 }
 
 export function handleChainOrAccChange() {

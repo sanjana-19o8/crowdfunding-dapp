@@ -10,4 +10,12 @@ module.exports = {
       accounts: [process.env.PRIVATE_KEY],
     },
   },
-};
+  module: {
+    rules: [
+      {
+        test: /\.node$/,
+        use: 'node-loader',
+      },
+    ]
+  }
+}
