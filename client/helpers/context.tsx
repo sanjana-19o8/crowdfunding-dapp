@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useState, useEffect, createContext } from 'react'
-import { Contract, ethers } from 'ethers'
+import { ethers } from 'ethers'
 import { abi, addr } from '../../scripts/constants.js'
 
 export const fetchContract = (signerOrProvider: ethers.Signer | ethers.providers.Provider) => new ethers.Contract(addr, abi, signerOrProvider);
